@@ -1,0 +1,5 @@
+module ClusterId
+  module Rails
+    VERSION: String
+  end
+end
