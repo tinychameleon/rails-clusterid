@@ -11,3 +11,6 @@ module ClusterId::Rails
   class Error < StandardError; end
   # Your code goes here...
 end
+
+require_relative "rails-clusterid/datatype"
+require_relative "rails-clusterid/railtie"
