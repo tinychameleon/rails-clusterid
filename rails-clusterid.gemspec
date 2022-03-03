@@ -26,4 +26,5 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "crockford32", "~> 1.0"
   spec.add_dependency "clusterid", "~> 1.0"
+  spec.add_dependency "rails", "~> 7.0"
 end
