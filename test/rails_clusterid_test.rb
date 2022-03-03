@@ -2,8 +2,8 @@
 
 require "test_helper"
 
-class TestRailsClusterId < ActiveSupport::TestCase
-  def test_that_it_has_a_version_number
+class RailsClusterIdTest < ActiveSupport::TestCase
+  test "it has a version number" do
     refute_nil ClusterId::Rails::VERSION
   end
 end
