@@ -1,0 +1,32 @@
+version: "3.8"
+
+volumes:
+  postgres_db:
+  mysql_db:
+  sqlite_db:
+
+services:
+  postgresql:
+    image: postgres:14.2
+    environment:
+      POSTGRES_USER: tester
+      POSTGRES_PASSWORD: 123456
+    volumes:
+      - postgres_db:/var/lib/postgresql/data
+
+  mysql:
+    image: mysql:8.0.28
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_USER: tester
+      MYSQL_PASSWORD: 123456
+    volumes:
+      - mysql_db:/var/lib/mysql
+
+  dummy:
+    build: .
+    command: bash -c 'cd test/dummy && bundle exec rails s -b 0.0.0.0 -e ${RAILS_ENV}'
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/workspace
