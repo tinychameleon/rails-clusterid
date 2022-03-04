@@ -1,5 +1,7 @@
 # Configure Rails Environment
-ENV["RAILS_ENV"] = "test"
+ALLOWED_ENVS = ["test_sqlite", "test_postgresql", "test_mysql"].freeze
+test_env = ENV["RAILS_ENV"]
+raise StandardError, "Bad test env: #{test_env}" unless ALLOWED_ENVS.include?(test_env)
 
 require_relative "../test/dummy/config/environment"
 ActiveRecord::Migrator.migrations_paths = [File.expand_path("../test/dummy/db/migrate", __dir__)]
