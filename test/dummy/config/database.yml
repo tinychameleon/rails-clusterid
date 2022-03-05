@@ -11,9 +11,9 @@ test_sqlite:
 test_postgresql:
   <<: *common
   adapter: postgresql
-  host: postgresql
+  host: localhost
 
 test_mysql:
   <<: *common
   adapter: mysql
-  host: mysql
+  host: localhost
