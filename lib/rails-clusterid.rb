@@ -2,6 +2,7 @@
 
 module ClusterId
   module Rails
+    DATA_TYPE = :clusterid
   end
 end
 

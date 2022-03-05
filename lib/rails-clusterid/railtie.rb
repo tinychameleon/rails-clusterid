@@ -1,42 +1,22 @@
 # frozen_string_literal: true
 
-require "active_record/connection_adapters/abstract/schema_definitions"
+require_relative "railtie/activerecord_type"
+require_relative "railtie/native_data_types"
+require_relative "railtie/table_definition"
+
 module ClusterId::Rails
   class Railtie < ::Rails::Railtie
-    initializer "clusterid_railtie" do |app|
-      puts "rails-clusterid: initializing..."
-
-      # With configuration that creates generators...
-      #   config.clusterid.generators = [Gen.new, Gen2.new]
-      #  
-      #  - initializer can...
-      #    - create the clusterid config app that has assignment methods
-      #  - config/initializer can...
-      #    - assign generators to .generators=
-
-      # set the version of clusterid used here if not set
-      # Construct a default generator for ActiveRecord to use
-
-      # register the ActiveRecord data type here
-      # require_relative "postgresql"
-      ::ActiveRecord::ConnectionAdapters::TableDefinition.send(:define_column_methods, :clusterid)
-      ::ActiveRecord::Base.connection.native_database_types[:clusterid] = { name: "bytea" }
-      ::ActiveRecord::Type.register(:clusterid, ClusterId::Rails::ClusterIdColumn, override: false)
+    initializer "rails_clusterid.column_methods" do
+      TableDefinition.register_column_methods!
     end
 
-    config.to_prepare do
-      puts "rails-clusterid: configuring..."
-      Railtie.setup!
+    initializer "rails_clusterid.native_data_types" do |app|
+      adapter = app.config_for(:database)[:adapter]
+      NativeDataTypes.register_database_types! adapter
     end
 
-    def self.setup!
-      config.clusterid = true
+    initializer "rails_clusterid.activerecord_type" do
+      ActiveRecordType.register!
     end
-
-    # Notes:
-    #   - Rails seemed to call the initializer above BEFORE the configuring.
-    #   - "initializer" is what we want.
-    #   - "configuration" seems to be for after initialization
-    #     - Used to configure specific Rails attributes
   end
 end

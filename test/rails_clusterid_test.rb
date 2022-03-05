@@ -6,4 +6,8 @@ class RailsClusterIdTest < ActiveSupport::TestCase
   test "it has a version number" do
     refute_nil ClusterId::Rails::VERSION
   end
+
+  test "it has clusterid as a data type" do
+    assert_equal :clusterid, ClusterId::Rails::DATA_TYPE
+  end
 end
