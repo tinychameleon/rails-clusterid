@@ -6,12 +6,16 @@ module ClusterId
   end
 end
 
-require_relative "rails-clusterid/version"
-
 module ClusterId::Rails
   class Error < StandardError; end
-  # Your code goes here...
+
+  class NotAGeneratorError < Error; end
 end
 
+require "clusterid"
+require "crockford32"
+
+require_relative "rails-clusterid/version"
+require_relative "rails-clusterid/config"
 require_relative "rails-clusterid/datatype"
 require_relative "rails-clusterid/railtie"

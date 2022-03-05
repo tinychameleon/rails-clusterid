@@ -2,16 +2,27 @@
 
 module ClusterId::Rails
   class Config
-    def generators(version)
-      # look up the generator via version???
+    attr_accessor :default_generator
+
+    def add_generator(name, generator)
+      raise NotAGeneratorError, "#{generator} is not a generator" unless GENERATOR_TYPES.include?(generator.class)
+
+      @generators[name] = generator
     end
 
-    def generators=(array)
-      # freeze the generators array...
+    def generator(name)
+      @generators.fetch(name)
     end
 
     def initialize
-      @generators = [].freeze
+      @generators = {}
+      @default_generator = :default
     end
+
+    private
+
+    GENERATOR_TYPES = [
+      ClusterId::V1::Generator
+    ].freeze
   end
 end
