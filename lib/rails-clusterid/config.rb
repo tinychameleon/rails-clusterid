@@ -16,7 +16,7 @@ module ClusterId::Rails
 
     def initialize
       @generators = {}
-      @default_generator = :default
+      @default_generator = DEFAULT_GENERATOR_NAME
     end
 
     private

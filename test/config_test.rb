@@ -5,7 +5,7 @@ class RailsClusterIdConfigTest < ActiveSupport::TestCase
     @config = ::ClusterId::Rails::Config.new
   end
 
-  test "initial generator symbol is default" do
+  test "initial generator symbol is :default" do
     assert_equal :default, @config.default_generator
   end
 
