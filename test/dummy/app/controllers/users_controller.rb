@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   def index
-    @users = User.all
+    @users = User.all.order(id: :desc)
   end
 
   def show
@@ -11,8 +11,12 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  def edit
+    @user = User.find(params[:id])
+  end
+
   def create
-    user = User.create(params.permit(:name))
+    user = User.create(user_params)
     if user.save
       redirect_to users_path
     else
@@ -20,11 +24,18 @@ class UsersController < ApplicationController
     end
   end
 
-  def edit
+  def update
     @user = User.find(params[:id])
+    if @user.update(user_params)
+      redirect_to @user
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
-  def destroy
-    User.find(params[:id]).destroy
+  private
+
+  def user_params
+    params.require(:user).permit(:name)
   end
 end

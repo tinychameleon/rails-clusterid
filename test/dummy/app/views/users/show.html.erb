@@ -1,8 +1,31 @@
-<h1>User: <%= @user.name %></h1>
+<h1>User: <%= @user.name %> (<%= @user.friendly_id %>)</h1>
 <p>
   <%= link_to "User Index", users_path %>
   <%= link_to "Edit", edit_user_path(@user) %>
-  <%= link_to "Delete", destroy_user_path(@user) %>
 </p>
 <h2>User Settings</h2>
-TODO
+<ul>
+  <% @user.settings.each do |s| -%>
+  <li><%= s.name %>: <%= s.value %></li>
+  <% end -%>
+</ul>
+<h2>Add a Setting</h2>
+<%= form_with model: [@user, @user.settings.build] do |form| %>
+  <p>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </p>
+  <p>
+    <%= form.label :value %>
+    <%= form.text_field :value %>
+  </p>
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>
+<h2>Projects</h2>
+<ul>
+<% @user.projects.each do |p| %>
+  <li><%= link_to p.name, project_path(p) %></li>
+<% end %>
+</ul>

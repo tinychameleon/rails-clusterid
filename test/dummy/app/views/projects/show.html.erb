@@ -1,0 +1,21 @@
+<h1>Project: <%= @project.name %></h1>
+<p>
+  <%= link_to "Project Index", projects_path %>
+  <%= link_to "Edit", edit_project_path(@project) %>
+</p>
+<h2>Project Users</h2>
+<ul>
+  <% @project.users.each do |u| -%>
+  <li><%= link_to u.name, user_path(u) %></li>
+  <% end -%>
+</ul>
+<h2>Add a User</h2>
+<%= form_with model: @project do |form| %>
+  <p>
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id %>
+  </p>
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>
