@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "test_helper"
+
 class RailsClusterIdConfigTest < ActiveSupport::TestCase
   setup do
     @config = ::ClusterId::Rails::Config.new
