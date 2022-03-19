@@ -34,4 +34,8 @@ class RailsClusterIdRailtieTest < ActiveSupport::TestCase
   test "registers the clusterid ActiveRecord type" do
     assert_kind_of ::ClusterId::Rails::Type, ::ActiveRecord::Type.lookup(:clusterid)
   end
+
+  test "overrides the default ActiveRecord Schema Statements" do
+    assert_equal ::ClusterId::Rails::SchemaStatements, ::ActiveRecord::ConnectionAdapters::SchemaStatements.ancestors.first
+  end
 end

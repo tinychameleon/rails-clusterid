@@ -15,6 +15,10 @@ module ClusterId::Rails
       ::ActiveRecord::Type.register(DATA_TYPE, ::ClusterId::Rails::Type, override: false)
     end
 
+    initializer "rails_clusterid.activerecord_schema_statements" do
+      ::ActiveRecord::ConnectionAdapters::SchemaStatements.prepend(::ClusterId::Rails::SchemaStatements)
+    end
+
     initializer "rails_clusterid.configuration" do
       ::Rails::Application::Configuration.include(ApplicationConfiguration)
     end
