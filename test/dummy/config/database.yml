@@ -3,17 +3,21 @@ common-attributes: &common
   password: 123456
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
+  database: test_dummy
 
 test_sqlite:
   <<: *common
   adapter: sqlite3
+  database: db/test.sqlite3
 
 test_postgresql:
   <<: *common
   adapter: postgresql
   host: localhost
+  port: 5432
 
 test_mysql:
   <<: *common
-  adapter: mysql
-  host: localhost
+  adapter: mysql2
+  host: 127.0.0.1
+  port: 3306
