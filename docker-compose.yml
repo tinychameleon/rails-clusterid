@@ -11,6 +11,9 @@ services:
     environment:
       POSTGRES_USER: tester
       POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: test_dummy
+    ports:
+      - 5432:5432
     volumes:
       - postgres_db:/var/lib/postgresql/data
 
@@ -20,6 +23,9 @@ services:
       MYSQL_ROOT_PASSWORD: 123456
       MYSQL_USER: tester
       MYSQL_PASSWORD: 123456
+      MYSQL_DATABASE: test_dummy
+    ports:
+      - 3306:3306
     volumes:
       - mysql_db:/var/lib/mysql
 
