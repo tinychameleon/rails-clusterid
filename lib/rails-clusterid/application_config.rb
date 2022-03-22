@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module ClusterId::Rails
+  # An +ActiveSupport::Concern+ which provides a method to access a {Config} object
+  # through +Rails::Configuration+.
   module ApplicationConfiguration
     extend ActiveSupport::Concern
 

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module ClusterId::Rails
+  # A +Rails::Railtie+ containing initialization logic for the plugin.
   class Railtie < ::Rails::Railtie
     initializer "rails_clusterid.column_methods" do
       ::ActiveRecord::ConnectionAdapters::TableDefinition.send(:define_column_methods, DATA_TYPE)
@@ -25,6 +26,11 @@ module ClusterId::Rails
 
     private
 
+    # Converts a database adapter to a hash representing the ClusterId native database type
+    # for ActiveRecord to query.
+    #
+    # @param adapter [Symbol] A symbol representing a database adapter.
+    # @return [Hash] A hash representing the ClusterId native database type.
     def native_type(adapter)
       case adapter
       when :postgresql then { name: "bytea" }

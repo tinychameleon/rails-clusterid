@@ -3,6 +3,7 @@
 require "crockford32"
 
 module ClusterId::Rails
+  # An +ActiveSupport::Concern+ allowing automatic ClusterId primary keys for ActiveRecord models.
   module Model
     extend ActiveSupport::Concern
 
