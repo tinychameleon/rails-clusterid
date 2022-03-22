@@ -11,7 +11,7 @@ module ClusterId::Rails
     # @param value [String, nil] The value stored in the database, possibly escaped.
     # @return [String, nil] The unescaped ClusterId byte string.
     def deserialize(value)
-      return value.to_s if value.is_a?(::ActiveRecord::Type::Binary::Data)
+      return value.to_s if value.is_a?(Data)
 
       if database_adapter == :postgresql
         ::ActiveRecord::Base.connection.unescape_bytea(value)
@@ -24,7 +24,7 @@ module ClusterId::Rails
     #
     # @param value [String, nil] A ClusterId value as a byte string or the Crockford32
     #   encoding of that byte string.
-    # @return [::ActiveRecord::Type::Binary::Data, nil] The ClusterId byte string wrapped
+    # @return [Data, nil] The ClusterId byte string wrapped
     #   inside a serialization helper class.
     def serialize(value)
       return if value.nil?
@@ -35,8 +35,11 @@ module ClusterId::Rails
                 value
               end
 
-      ::ActiveRecord::Type::Binary::Data.new(bytes)
+      Data.new(bytes)
     end
+
+    # A helper class for serializing byte strings.
+    class Data < ::ActiveRecord::Type::Binary::Data; end
 
     private
 

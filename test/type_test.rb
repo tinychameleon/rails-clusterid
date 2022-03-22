@@ -14,7 +14,7 @@ class RailsClusterIdTypeTest < ActiveSupport::TestCase
   end
 
   test "deserializes binary Data to the string value" do
-    assert_equal "abc", @type.deserialize(::ActiveRecord::Type::Binary::Data.new("abc"))
+    assert_equal "abc", @type.deserialize(::ClusterId::Rails::Type::Data.new("abc"))
   end
 
   test "deserialize returns the unescaped byte value when dealing with PostgreSQL" do
@@ -36,13 +36,13 @@ class RailsClusterIdTypeTest < ActiveSupport::TestCase
 
   test "serialize returns a binary Data with the given value" do
     data = @type.serialize("123")
-    assert_kind_of ::ActiveRecord::Type::Binary::Data, data
+    assert_kind_of ::ClusterId::Rails::Type::Data, data
     assert_equal "123", data.to_s
   end
 
   test "serialize decodes Crockford32 values into binary Data values if given one" do
     data = @type.serialize("0123456789ABCDEFGHJKMNPQRS")
-    assert_kind_of ::ActiveRecord::Type::Binary::Data, data
+    assert_kind_of ::ClusterId::Rails::Type::Data, data
     assert_equal " \x88A\x8A9(\xA9\xC5\x9A{0\xCAI\xAB\xBD8\x03", data.to_s
   end
 end
