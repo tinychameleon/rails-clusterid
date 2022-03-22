@@ -33,9 +33,9 @@ module ClusterId::Rails
     # @return [Hash] A hash representing the ClusterId native database type.
     def native_type(adapter)
       case adapter
-      when :postgresql then { name: "bytea" }
-      when :mysql2 then { name: "binary", limit: BYTE_LENGTH }
-      when :sqlite3 then { name: "blob" }
+      when :postgresql then {name: "bytea"}
+      when :mysql2 then {name: "binary", limit: BYTE_LENGTH}
+      when :sqlite3 then {name: "blob"}
       end
     end
   end

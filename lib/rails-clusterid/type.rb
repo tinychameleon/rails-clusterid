@@ -30,10 +30,10 @@ module ClusterId::Rails
       return if value.nil?
 
       bytes = if value.length == CROCKFORD32_LENGTH
-                Crockford32.decode(value, into: :string, length: BYTE_LENGTH)
-              else
-                value
-              end
+        Crockford32.decode(value, into: :string, length: BYTE_LENGTH)
+      else
+        value
+      end
 
       Data.new(bytes)
     end

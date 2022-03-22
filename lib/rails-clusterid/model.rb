@@ -22,14 +22,14 @@ module ClusterId::Rails
 
       private
 
-        def clusterid_generator
-          ::ClusterId::Rails::DEFAULT_GENERATOR_NAME
-        end
+      def clusterid_generator
+        ::ClusterId::Rails::DEFAULT_GENERATOR_NAME
+      end
 
-        def assign_clusterid_to_id
-          g = Rails.application.config.clusterid.generator(clusterid_generator)
-          self.id = g.generate.bytes.reverse
-        end
+      def assign_clusterid_to_id
+        g = Rails.application.config.clusterid.generator(clusterid_generator)
+        self.id = g.generate.bytes.reverse
+      end
     end
   end
 end
