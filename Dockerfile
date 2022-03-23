@@ -1,5 +1,5 @@
-ARG VERSION
-FROM ruby:${VERSION}
+ARG RUBY_VERSION
+FROM ruby:$RUBY_VERSION
 
 WORKDIR /workspace
 RUN mkdir -p lib/rails-clusterid

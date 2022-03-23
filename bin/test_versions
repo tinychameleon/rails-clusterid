@@ -2,23 +2,39 @@
 set -euo pipefail
 
 RUBY_VERSIONS=(
-  2.6.0
-  2.6.9
-  2.7.0
-  2.7.5
-  3.0.0
-  3.0.3
-  3.1.0
-  3.1.1
+  "2.7.5"
+  "3.0.3"
+  "3.1.1"
+)
+
+DATABASES=(
+  "sqlite"
+  "mysql"
+  "postgresql"
 )
 
 IMAGE_PREFIX="rails-clusterid"
 
-for v in ${RUBY_VERSIONS[@]}; do
-  docker build -t "${IMAGE_PREFIX}:${v}" --build-arg "VERSION=${v}" .
+for ruby_version in ${RUBY_VERSIONS[@]}; do
+  echo "Building image for Ruby $ruby_version"
+  docker build -t "$IMAGE_PREFIX:ruby-$ruby_version" --build-arg RUBY_VERSION=$ruby_version .
 done
 
-for v in ${RUBY_VERSIONS[@]}; do
-  echo "Running tests for Ruby ${v}..."
-  docker run --rm -ti -v "${PWD}:/workspace" "${IMAGE_PREFIX}:${v}" bundle exec rake test
+for db in ${DATABASES[@]}; do
+  echo "Running for database $db"
+  runflags=""
+  if [[ "$db" != "sqlite" ]]; then
+    runflags="--network rails-clusterid_default"
+    docker compose up -d "$db"
+    echo "Waiting a few seconds for $db to start up"
+    sleep 5
+  fi
+
+  env="test_${db}"
+  for ruby_version in ${RUBY_VERSIONS[@]}; do
+    echo "Running tests for Ruby ${ruby_version}"
+    docker run --rm -ti -v $PWD:/workspace $runflags "$IMAGE_PREFIX:ruby-$ruby_version" bin/test -e "$env"
+  done
+
+  docker compose down "$db"
 done
