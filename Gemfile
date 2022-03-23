@@ -10,7 +10,6 @@ gem "minitest", "~> 5.0"
 gem "standard", "~> 1.3"
 gem "yard", "~> 0.9.27"
 gem "debug", "~> 1.4"
-gem "rbs", "~> 2.2"
 
 # Rails-specific gems
 gem "pg"
