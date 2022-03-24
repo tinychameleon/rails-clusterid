@@ -10,6 +10,8 @@ A Ruby on Rails plugin for using [ClusterId](https://github.com/tinychameleon/cl
 
 📚 YARD generated API documentation for the library. [Check it out!](https://tinychameleon.github.io/rails-clusterid/)
 
+🤖 RBS types for your type checking wants. [Check it out!](./sig/rails-clusterid.rbs)
+
 💎 Tests against many Ruby versions. [Check it out!](#ruby-versions)
 
 🔒 MFA protection on all gem owners. [Check it out!](https://rubygems.org/gems/rails-clusterid)
