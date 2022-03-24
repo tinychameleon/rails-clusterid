@@ -1,5 +1,45 @@
 module ClusterId
   module Rails
+    DATA_TYPE: Symbol
+    DEFAULT_GENERATOR_NAME: Symbol
+    BYTE_LENGTH: Integer
+    CROCKFORD32_LENGTH: Integer
     VERSION: String
+
+    def self.clusterid_primary_keys?: () -> bool
+
+    class Config
+      GENERATOR_TYPES: Array[Class]
+
+      def add_generator: (Symbol, untyped) -> untyped
+      def generator: (Symbol) -> untyped
+    end
+
+    class Railtie
+    end
+
+    class Type
+      class Data
+      end
+
+      def deserialize: ((Data | String)?) -> String?
+      def serialize: (String?) -> Data?
+    end
+
+    module ApplicationConfiguration
+    end
+
+    module Model
+    end
+
+    module SchemaStatements
+      def create_join_table: (Symbol, Symbol, column_options: Hash, **Hash) -> untyped
+    end
+
+    class Error < StandardError
+    end
+
+    class NotAGeneratorError < Error
+    end
   end
 end
