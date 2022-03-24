@@ -3,9 +3,6 @@
 module ClusterId::Rails
   # The configuration object added to the Rails configuration registry.
   class Config
-    # The default generator to use for models which include the {Model} Concern.
-    attr_accessor :default_generator
-
     # Add a generator with a name to use within models.
     #
     # @param name [Symbol] The name to associate with the provided generator.
@@ -31,7 +28,6 @@ module ClusterId::Rails
 
     def initialize
       @generators = {}
-      @default_generator = DEFAULT_GENERATOR_NAME
     end
 
     private
