@@ -2,6 +2,8 @@
 
 # An extension to the ClusterId[https://rubygems.org/gems/clusterid] gem which integrates
 # it into Ruby on Rails.
+#
+# @since 0.1.0
 module ClusterId
   # The extension module which contains all Ruby on Rails integrations.
   module Rails
